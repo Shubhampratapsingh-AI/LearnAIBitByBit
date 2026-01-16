@@ -1,27 +1,15 @@
 import streamlit as st
 import google.generativeai as genai
-from PIL import Image
-from io import BytesIO
+import os
 
-# --- SETUP ---
-st.set_page_config(page_title="AI 365 Generator", page_icon="🚀", layout="centered")
-
-# 1. Get API Key Securely from Streamlit Secrets
-# Make sure you have a .streamlit/secrets.toml file with: GEMINI_API_KEY = "your_key"
+# Gemini API Key from Streamlit Secrets
 GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
-    st.error("❌ Add GEMINI_API_KEY to Streamlit Secrets! Get it from ai.google.dev")
+    st.error("❌ Add GEMINI_API_KEY to Streamlit Secrets (ai.google.dev)")
     st.stop()
 
 genai.configure(api_key=GEMINI_API_KEY)
-
-# 2. Initialize TWO Separate Models
-# Model for faster Text Generation (LinkedIn Post)
-text_model = genai.GenerativeModel('gemini-2.0-flash-exp') # Or 'gemini-1.5-flash-latest'
-
-# Model specifically for Image Generation
-# NOTE: Ensure your API key has access to Imagen 3 in Google AI Studio.
-image_model = genai.GenerativeModel('imagen-3.0-generate-001')
+model = genai.GenerativeModel('gemini-3-flash-preview')
 
 # YOUR COMPLETE DAILY TOPICS LIST (exactly as provided)
 DAILY_TOPICS = {
@@ -441,80 +429,57 @@ DAILY_TOPICS = {
 
 }
 
-# --- UI ---
 st.title("🚀 365-Day AI Series Generator")
-st.markdown("**Gemini Flash (Text) + Imagen 3 (Visuals) • Robotics Focus**")
+st.markdown("**Gemini Text + Images • Your Exact Topics • Robotics Focus**")
 
-day = st.number_input("Enter Day (1-365)", 1, 365, 91)
+day = st.number_input("Enter Day (1-365)", 1, 365, 1)
 topic = DAILY_TOPICS.get(day, "AI & Robotics Deep Dive")
 
-st.success(f"**📚 Day {day}:** {topic}")
+st.success(f"**📚 Day {day} Topic:** {topic}")
 
-# --- GENERATION LOGIC ---
-if st.button("🎯 Generate POST + IMAGE", type="primary"):
-    
-    # A. Generate Text Post
-    with st.spinner("✍️ Gemini Flash is writing your post..."):
-        post_prompt = f"""
+if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
+    with st.spinner("🎨 Gemini creating post + image..."):
+        # 1. Generate POST TEXT
+        text_prompt = f"""
         Day {day}: "{topic}"
         
-        Write a LinkedIn post for an Indian tech YouTuber (approx 200 words).
-        Structure:
-        1. Hook (engaging question or statement)
-        2. Simple explanation of the topic without jargon.
-        3. A brief, relatable example related to robotics or physical AI.
-        4. Key takeaway for engineers.
-        5. Engaging question CTA + hashtags: #AI365 #PhysicalAI #Robotics #GenAI #MachineLearning
+        Create LinkedIn post for Indian tech YouTuber (robotics/electronics):
+        - 250 words: Hook → Simple explanation → Robotics example → Takeaway
+        - Conversational, educational tone
+        - End with question + hashtags (#AI365 #PhysicalAI #Robotics #GenAI)
         
-        Output ONLY the post text. Do not include any introductory or concluding remarks.
+        Output ONLY the post text ready to copy-paste.
         """
-        try:
-            # Use the TEXT model
-            post_response = text_model.generate_content(post_prompt)
-            post_text = post_response.text
-        except Exception as e:
-            st.error(f"Text generation failed: {e}")
-            post_text = "Error generating post text."
-
-    # B. Generate Image
-    with st.spinner("🎨 Imagen 3 is designing your infographic..."):
+        
+        text_response = model.generate_content(text_prompt)
+        post_text = text_response.text
+        
+        # 2. Generate IMAGE
         image_prompt = f"""
-        Infographic illustration for a professional LinkedIn post about: "{topic}".
-        Style: A clean, modern tech blueprint with glowing blue and cyan lines on a dark background. 3D render style.
-        Content: Visually explain "{topic}" using connected diagrams of neural network nodes, stylized robot arms or components, code snippets, and data flow charts.
-        Text: Include the title "{topic}" at the top in a futuristic font.
-        Aspect Ratio: Square (1:1). High detail, photorealistic.
+        Create LinkedIn carousel image for: "{topic}"
+        Style: Professional tech infographic (blue/cyan)
+        Include: Diagrams, robots, neural networks, code snippets
+        Clean design for engineers learning AI/robotics
+        1024x1024, high quality
         """
-        image_data = None
-        try:
-            # Use the IMAGE model. No special config needed for Imagen.
-            image_response = image_model.generate_content(image_prompt)
-            
-            # Extract the raw image bytes
-            image_data = image_response.parts[0].inline_data.data
-            image = Image.open(BytesIO(image_data))
-            
-        except Exception as e:
-            st.warning(f"Image generation failed. You might not have access to `imagen-3.0-generate-001` yet. Error: {e}")
-            image = None
-
-    # --- DISPLAY RESULTS ---
-    st.divider()
-    st.markdown("## ✅ **COMPLETE PACKAGE**")
-    
-    col_text, col_img = st.columns([1, 1])
-    
-    with col_text:
+        
+        # Note: Use Gemini's image gen endpoint or fallback to text description
+        # For now, generate image prompt for manual creation
+        st.markdown("## ✅ **YOUR LINKEDIN PACKAGE**")
+        
         st.markdown("### 📝 **Post Text**")
-        st.text_area("Copy-Paste Ready", post_text, height=400)
-        st.download_button("📄 Download Text", post_text, f"Day_{day}_Post.txt")
+        st.markdown(post_text)
+        
+        st.markdown("### 🖼️ **Image Prompt** (Copy to Gemini Image Gen)")
+        st.code(image_prompt, language="text")
+        
+        # Downloads
+        col1, col2 = st.columns(2)
+        with col1:
+            st.download_button("📄 Download Post", post_text, f"Day_{day}_Post.txt")
+        with col2:
+            st.download_button("🎨 Download Image Prompt", image_prompt, f"Day_{day}_Image_Prompt.txt")
 
-    with col_img:
-        st.markdown("### 🖼️ **Generated Image**")
-        if image:
-            st.image(image, use_column_width=True)
-            st.download_button("🖼️ Download Image", image_data, f"Day_{day}_Image.png", "image/png")
-        else:
-            st.info("Image not generated.")
+st.info("💎 **Pro Tip:** Paste Image Prompt into Gemini image generator for instant visuals!")
+st.caption("Days 1-68 + 335-365 loaded • Add more topics anytime!")
 
-st.info("💡 **Tip:** If image generation fails, check Google AI Studio to ensure your API key has Imagen 3 enabled.")
