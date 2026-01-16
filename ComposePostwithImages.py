@@ -1,17 +1,27 @@
 import streamlit as st
 import google.generativeai as genai
-import os
 from PIL import Image
 from io import BytesIO
 
-# Gemini API Key from Streamlit Secrets
-GEMINI_API_KEY = "AIzaSyAJM4cfZ1zE4lmM1Ai5_X4d5mvoAAouZPI"
+# --- SETUP ---
+st.set_page_config(page_title="AI 365 Generator", page_icon="🚀", layout="centered")
+
+# 1. Get API Key Securely from Streamlit Secrets
+# Make sure you have a .streamlit/secrets.toml file with: GEMINI_API_KEY = "your_key"
+GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
-    st.error("❌ Add GEMINI_API_KEY to Streamlit Secrets! Get from ai.google.dev")
+    st.error("❌ Add GEMINI_API_KEY to Streamlit Secrets! Get it from ai.google.dev")
     st.stop()
 
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-3-flash-preview')
+
+# 2. Initialize TWO Separate Models
+# Model for faster Text Generation (LinkedIn Post)
+text_model = genai.GenerativeModel('gemini-2.0-flash-exp') # Or 'gemini-1.5-flash-latest'
+
+# Model specifically for Image Generation
+# NOTE: Ensure your API key has access to Imagen 3 in Google AI Studio.
+image_model = genai.GenerativeModel('imagen-3.0-generate-001')
 
 # YOUR COMPLETE DAILY TOPICS LIST (exactly as provided)
 DAILY_TOPICS = {
@@ -431,64 +441,80 @@ DAILY_TOPICS = {
 
 }
 
-st.title("🚀 365-Day AI Series - TEXT + ACTUAL IMAGES")
-st.markdown("**Gemini 2.5 Flash • Complete LinkedIn Package • Robotics Focus**")
+# --- UI ---
+st.title("🚀 365-Day AI Series Generator")
+st.markdown("**Gemini Flash (Text) + Imagen 3 (Visuals) • Robotics Focus**")
 
-day = st.number_input("Enter Day (1-365)", 1, 365, 1)
+day = st.number_input("Enter Day (1-365)", 1, 365, 91)
 topic = DAILY_TOPICS.get(day, "AI & Robotics Deep Dive")
 
 st.success(f"**📚 Day {day}:** {topic}")
 
+# --- GENERATION LOGIC ---
 if st.button("🎯 Generate POST + IMAGE", type="primary"):
-    with st.spinner("✨ Gemini creating your complete package..."):
-        # 1. Generate LinkedIn POST
+    
+    # A. Generate Text Post
+    with st.spinner("✍️ Gemini Flash is writing your post..."):
         post_prompt = f"""
         Day {day}: "{topic}"
         
-        Indian tech YouTuber LinkedIn post (250 words):
-        - Hook → Simple explanation → Robotics example → Takeaway
-        - Question CTA + #AI365 #PhysicalAI #Robotics #GenAI #MachineLearning
+        Write a LinkedIn post for an Indian tech YouTuber (approx 200 words).
+        Structure:
+        1. Hook (engaging question or statement)
+        2. Simple explanation of the topic without jargon.
+        3. A brief, relatable example related to robotics or physical AI.
+        4. Key takeaway for engineers.
+        5. Engaging question CTA + hashtags: #AI365 #PhysicalAI #Robotics #GenAI #MachineLearning
         
-        Output ONLY the post text.
+        Output ONLY the post text. Do not include any introductory or concluding remarks.
         """
-        
-        post_response = model.generate_content(post_prompt)
-        post_text = post_response.text
-        
-        # 2. Generate ACTUAL IMAGE
+        try:
+            # Use the TEXT model
+            post_response = text_model.generate_content(post_prompt)
+            post_text = post_response.text
+        except Exception as e:
+            st.error(f"Text generation failed: {e}")
+            post_text = "Error generating post text."
+
+    # B. Generate Image
+    with st.spinner("🎨 Imagen 3 is designing your infographic..."):
         image_prompt = f"""
-        Professional LinkedIn infographic for AI topic: "{topic}"
-        Style: Clean tech diagram, blue/cyan colors
-        Include: Neural networks, robots, code, charts
-        Perfect for engineers learning AI/robotics
-        Square format, high quality
+        Infographic illustration for a professional LinkedIn post about: "{topic}".
+        Style: A clean, modern tech blueprint with glowing blue and cyan lines on a dark background. 3D render style.
+        Content: Visually explain "{topic}" using connected diagrams of neural network nodes, stylized robot arms or components, code snippets, and data flow charts.
+        Text: Include the title "{topic}" at the top in a futuristic font.
+        Aspect Ratio: Square (1:1). High detail, photorealistic.
         """
-        
-        # Gemini 2.5 Flash Image Generation
-        image_response = model.generate_content(image_prompt, 
-                                             generation_config={
-                                                 "response_mime_type": "image/png"
-                                             })
-        
-        # Extract image from response
-        image_data = image_response.parts[0].inline_data.data
-        image = Image.open(BytesIO(image_data))
-        
-        # Display results
-        st.markdown("## ✅ **COMPLETE LINKEDIN PACKAGE**")
-        
-        st.markdown("### 📝 **Post Text** (Copy-Paste Ready)")
-        st.markdown(post_text)
-        
-        st.markdown("### 🖼️ **AI Generated Image**")
-        st.image(image, use_column_width=True)
-        
-        # Downloads
-        col1, col2 = st.columns(2)
-        with col1:
-            st.download_button("📄 Download Post", post_text, f"Day_{day}_Post.txt")
-        with col2:
+        image_data = None
+        try:
+            # Use the IMAGE model. No special config needed for Imagen.
+            image_response = image_model.generate_content(image_prompt)
+            
+            # Extract the raw image bytes
+            image_data = image_response.parts[0].inline_data.data
+            image = Image.open(BytesIO(image_data))
+            
+        except Exception as e:
+            st.warning(f"Image generation failed. You might not have access to `imagen-3.0-generate-001` yet. Error: {e}")
+            image = None
+
+    # --- DISPLAY RESULTS ---
+    st.divider()
+    st.markdown("## ✅ **COMPLETE PACKAGE**")
+    
+    col_text, col_img = st.columns([1, 1])
+    
+    with col_text:
+        st.markdown("### 📝 **Post Text**")
+        st.text_area("Copy-Paste Ready", post_text, height=400)
+        st.download_button("📄 Download Text", post_text, f"Day_{day}_Post.txt")
+
+    with col_img:
+        st.markdown("### 🖼️ **Generated Image**")
+        if image:
+            st.image(image, use_column_width=True)
             st.download_button("🖼️ Download Image", image_data, f"Day_{day}_Image.png", "image/png")
+        else:
+            st.info("Image not generated.")
 
-st.info("💎 **Production Ready** • Test Day 91 (Neural Networks) → Perfect diagram + post!")
-
+st.info("💡 **Tip:** If image generation fails, check Google AI Studio to ensure your API key has Imagen 3 enabled.")
