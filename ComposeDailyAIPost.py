@@ -3,9 +3,9 @@ import google.generativeai as genai
 import os
 
 # Use Streamlit secrets for API key
-GEMINI_API_KEY = "AIzaSyAJM4cfZ1zE4lmM1Ai5_X4d5mvoAAouZPI"
+GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
-    st.error("❌ Add GEMINI_API_KEY to Streamlit Secrets! Get from ai.google.dev")
+    st.error("❌ Add GEMINI_API_KEY to Streamlit Secrets! Get it from ai.google.dev")
     st.stop()
 
 genai.configure(api_key=GEMINI_API_KEY)
