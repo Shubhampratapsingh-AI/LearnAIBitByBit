@@ -13,7 +13,6 @@ model = genai.GenerativeModel('gemini-3-flash-preview')
 
 # YOUR COMPLETE DAILY TOPICS LIST (exactly as provided)
 DAILY_TOPICS = {
-   DAILY_TOPICS = {
     # MONTH 1: AI BASICS (Days 1-30)
     1: "What is Artificial Intelligence? Definitions and common misconceptions",
     2: "AI vs Machine Learning vs Deep Learning - The hierarchy explained", 
@@ -427,7 +426,6 @@ DAILY_TOPICS = {
     363: "Monitoring robot performance",
     364: "AI safety and alignment",
     365: "GRAND FINALE: AI Robotics Masterclass Complete!"
-}
 
 }
 
