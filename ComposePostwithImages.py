@@ -443,10 +443,10 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         text_prompt = f"""
         Day {day}: "{topic}"
         
-        Create LinkedIn post for Indian tech YouTuber (robotics/electronics):
-        - 250 words: Hook → Simple explanation → Robotics example → Takeaway
+        Create LinkedIn post for Indian tech YouTuber (robotics/electronics) for Day {day} of 365 days LearnPhysicalAIBitByBit:
+        - 200 words: Hook → Simple explanation → Robotics example → Takeaway
         - Conversational, educational tone
-        - End with question + hashtags (#AI365 #PhysicalAI #Robotics #GenAI)
+        - End with question + hashtags (#AI365 #LearnPhysicalAIBitByBit #PhysicalAI #Robotics #GenAI)
         
         Output ONLY the post text ready to copy-paste.
         """
