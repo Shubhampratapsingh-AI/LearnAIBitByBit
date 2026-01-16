@@ -457,7 +457,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         # 2. Generate IMAGE
         image_prompt = f"""
         Create LinkedIn carousel image for: "{topic}"
-        **Central Banner:**Across the exact center of the image, there is a large, glowing, futuristic banner with beveled edges. Inside this banner, in large, bold, neon cyan text, it reads: "DAY {day} OF 365: LearnAIBitByBit".
+        **Central Banner:**Across the exact center of the image, there is a large, glowing, futuristic banner with beveled edges. Inside this banner, in large, bold, neon cyan text, it reads: "DAY {day} OF 365: LearnPhysicalAIBitByBit".
         Style: Professional tech infographic (blue/cyan)
         Include: Diagrams, robots, neural networks, code snippets
         Clean design for engineers learning AI/robotics
