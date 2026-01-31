@@ -565,7 +565,6 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         #st.code(post_text)
         if st.button("✨ Regenerate Post", type="primary"):
             with st.spinner("🎨 Regenerating..."):
-             
                 text_response2 = model.generate_content(text_prompt)
                 post_text2 = text_response2.text
                 st.markdown("### 📝 **Post Text**")
@@ -576,12 +575,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         st.markdown("### 🖼️ **Image Prompts** ")
         st.code(image_prompt2, language="text")
         st.code(image_prompt1, language="text")
-        # Downloads
-        col1, col2 = st.columns(2)
-        with col1:
-            st.download_button("📄 Download Post", post_text, f"Day_{day}_Post.txt")
-        with col2:
-            st.download_button("🎨 Download Image Prompt", image_prompt, f"Day_{day}_Image_Prompt.txt")
+        
 
 st.info("💎 **Pro Tip:** Paste Image Prompt into Gemini image generator for instant visuals!")
 
