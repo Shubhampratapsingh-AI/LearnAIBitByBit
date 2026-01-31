@@ -563,11 +563,6 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         st.markdown("### 📝 **Post Text**")
         st.code(clean_markdown(post_text), language="text")
         #st.code(post_text)
-        if st.button("✨ Regenerate Post"):
-                text_response2 = model.generate_content(text_prompt)
-                post_text2 = text_response2.text
-                st.markdown("### 📝 **Post Text**")
-                st.code(clean_markdown(post_text2), language="text")
                
         st.markdown("### 📝 **Regenerated Post**")
         st.code(clean_markdown(post_text), language="text")
@@ -577,6 +572,12 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         
 
 st.info("💎 **Pro Tip:** Paste Image Prompt into Gemini image generator for instant visuals!")
+
+if st.button("✨ Regenerate Post"):
+        text_response2 = model.generate_content(text_prompt)
+        post_text2 = text_response2.text
+        st.markdown("### 📝 **Post Text**")
+        st.code(clean_markdown(post_text2), language="text")
 
 
 
