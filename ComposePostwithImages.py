@@ -494,7 +494,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
             st.download_button("🎨 Download Image Prompt", image_prompt, f"Day_{day}_Image_Prompt.txt")
 
 st.info("💎 **Pro Tip:** Paste Image Prompt into Gemini image generator for instant visuals!")
-st.caption("Days 1-68 + 335-365 loaded • Add more topics anytime!")
+
 
 
 
