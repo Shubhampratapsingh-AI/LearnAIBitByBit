@@ -444,6 +444,7 @@ st.markdown("**Gemini Text + Images • Your Exact Topics • Robotics Focus**")
 
 day = st.number_input("Enter Day (1-365)", 1, 365, 1)
 topic = DAILY_TOPICS.get(day, "AI & Robotics Deep Dive")
+word_count = st.number_input("Word count(100-600)", 100, 600, 250)
 TOTAL_PAGES = st.number_input("Enter Pages (1-10)", 1, 10, 5)
 st.success(f"**📚 Day {day} Topic:** {topic}")
 
@@ -454,7 +455,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         Day {day}: "{topic}"
         
         Create LinkedIn post for Indian tech YouTuber (robotics/electronics) for Day {day} of 365 days LearnPhysicalAIBitByBit:
-        - 200 words: Hook → Simple explanation → Robotics example → Takeaway
+        - {word_count} words: Hook → Simple explanation → Robotics example → Takeaway
         - Conversational, educational tone
         - End with question + hashtags (#AI365 #LearnPhysicalAIBitByBit #PhysicalAI #Robotics #GenAI)
         
