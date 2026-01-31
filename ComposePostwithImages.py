@@ -465,7 +465,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         post_text = text_response.text
         
         # 2. Generate IMAGE
-        image_prompt = f"""
+        '''image_prompt = f"""
         Create LinkedIn carousel image for: "{topic}"
         **Central Banner:**Across the exact center of the image, there is a large, glowing, futuristic banner with beveled edges. Inside this banner, in large, bold, neon cyan text, it reads: "DAY {day} OF 365: LearnPhysicalAIBitByBit".
         Style: Professional tech infographic (blue/cyan)
@@ -474,6 +474,59 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         1024x1024, high quality                                                                                                                                                                                                                                                                                                                             
         **Footer:** At the very bottom center, in smaller glowing text, include the fixed footer: "Keep Learning, Build the Future | **Shubham Pratap Singh**".
         """
+        '''
+        image_prompt = f"""
+        Create a professional LinkedIn carousel image for the topic: "{topic}"
+        
+        Overall Style:
+        - Dark charcoal / graphite background with subtle grid texture
+        - Accent color: neon lime green + white text
+        - Flat yet modern tech-infographic style (clean, minimal, engineering-focused)
+        - High contrast, easy to read on mobile
+        
+        Top Header:
+        - At the very top, bold white text:
+          "DAY {day} OF 365: LearnPhysicalAIBitByBit"
+        - Sans-serif, heavy weight, slightly condensed
+        - Header sits on a darker strip for clear separation
+        
+        Topic Banner:
+        - Below the header, place a wide horizontal lime-green strip
+        - Inside it, centered, bold text:
+          "{{topic}}"
+        - Text color: dark charcoal / near-black
+        - Simple, strong visual anchor
+        
+        Main Content (Left Side):
+        - Short, easy-to-read explanation of the topic
+        - Important keywords highlighted in lime green
+        - Text aligned vertically, like a learning card
+        - Keep language simple and educational (engineer-friendly)
+        
+        Visuals (Right Side):
+        - Topic-based vector illustrations ONLY (do not hardcode specific objects)
+        - Examples depending on topic:
+          - Robotics → robotic arm / actuators
+          - AI → neural network nodes
+          - Sensors → signal waves, chips
+        - Use flat icons, rounded shapes, lime + white color palette
+        
+        Layout Balance:
+        - Left: text explanation
+        - Right: diagrams/icons
+        - Plenty of spacing, no clutter
+        
+        Footer:
+        - At the bottom center, small white text:
+          "Keep Learning, Build the Future | Shubham Pratap Singh"
+        
+        Rendering:
+        - 1024x1024
+        - High quality
+        - Sharp typography
+        - Clean infographic look suitable for LinkedIn carousel
+        """
+
      
         # Note: Use Gemini's image gen endpoint or fallback to text description
         # For now, generate image prompt for manual creation
