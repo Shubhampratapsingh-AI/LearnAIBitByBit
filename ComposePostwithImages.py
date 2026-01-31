@@ -549,6 +549,13 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         - Primary text: White (#FFFFFF)
         - Secondary accent (icons/lines): Blue (#3498DB)
         
+        BACKGROUND ENFORCEMENT (CRITICAL):
+        - The ENTIRE canvas (1080x1350 px) must be filled edge-to-edge with Dark Charcoal Blue (#2C3E50)
+        - No white or transparent margins
+        - No visible artboard or page background
+        - Background color must reach all four rounded corners
+
+        
         SERIES METADATA (EDIT DAILY):
         - DAY NUMBER: {day}
         - SERIES TITLE: LearnPhysicalAIBitByBit
