@@ -480,7 +480,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         st.markdown("## ✅ **YOUR LINKEDIN PACKAGE**")
         
         st.markdown("### 📝 **Post Text**")
-        st.code(clean_markdown(post_text))
+        st.code(clean_markdown(post_text), language="text")
         #st.code(post_text)
         
         st.markdown("### 🖼️ **Image Prompt** (Copy to Gemini Image Gen)")
