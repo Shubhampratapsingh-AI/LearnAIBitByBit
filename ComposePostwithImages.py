@@ -568,6 +568,8 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
              
                 text_response2 = model.generate_content(text_prompt)
                 post_text2 = text_response2.text
+                st.markdown("### 📝 **Post Text**")
+                st.code(clean_markdown(post_text2), language="text")
                
         st.markdown("### 📝 **Regenerated Post**")
         st.code(clean_markdown(post_text), language="text")
