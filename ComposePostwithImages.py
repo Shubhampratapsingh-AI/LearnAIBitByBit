@@ -465,7 +465,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         post_text = text_response.text
         
         # 2. Generate IMAGE
-        '''image_prompt = f"""
+        image_prompt1 = f"""
         Create LinkedIn carousel image for: "{topic}"
         **Central Banner:**Across the exact center of the image, there is a large, glowing, futuristic banner with beveled edges. Inside this banner, in large, bold, neon cyan text, it reads: "DAY {day} OF 365: LearnPhysicalAIBitByBit".
         Style: Professional tech infographic (blue/cyan)
@@ -474,8 +474,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         1024x1024, high quality                                                                                                                                                                                                                                                                                                                             
         **Footer:** At the very bottom center, in smaller glowing text, include the fixed footer: "Keep Learning, Build the Future | **Shubham Pratap Singh**".
         """
-        '''
-        image_prompt = f"""
+        image_prompt2 = f"""
         Create a professional LinkedIn carousel image for the 365-day learning series.
         
         SERIES IDENTITY (DO NOT CHANGE):
@@ -564,10 +563,17 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         st.markdown("### 📝 **Post Text**")
         st.code(clean_markdown(post_text), language="text")
         #st.code(post_text)
-        
-        st.markdown("### 🖼️ **Image Prompt** (Copy to Gemini Image Gen)")
-        st.code(image_prompt, language="text")
-        
+        if st.button("✨ Regenerate Post", type="primary"):
+            with st.spinner("🎨 Regenerating..."):
+             
+                text_response2 = model.generate_content(text_prompt)
+                post_text2 = text_response2.text
+               
+        st.markdown("### 📝 **Regenerated Post**")
+        st.code(clean_markdown(post_text), language="text")
+        st.markdown("### 🖼️ **Image Prompts** ")
+        st.code(image_prompt2, language="text")
+        st.code(image_prompt1, language="text")
         # Downloads
         col1, col2 = st.columns(2)
         with col1:
@@ -576,7 +582,6 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
             st.download_button("🎨 Download Image Prompt", image_prompt, f"Day_{day}_Image_Prompt.txt")
 
 st.info("💎 **Pro Tip:** Paste Image Prompt into Gemini image generator for instant visuals!")
-
 
 
 
