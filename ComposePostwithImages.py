@@ -475,8 +475,52 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         **Footer:** At the very bottom center, in smaller glowing text, include the fixed footer: "Keep Learning, Build the Future | Author: Shubham Pratap Singh".
         """
         '''
+       # Replace the image_prompt section with this:
         image_prompt = f"""
-        Infographic image with a dark charcoal blue background featuring a subtle grid pattern. At the very top, a prominent header section has large, bold, white sans-serif text that reads: "DAY {day} OF 365: LearnPhysicalAIBitByBit". Directly below this header is a solid, bright lime green horizontal banner containing the text "{topic}" in white, uppercase, bold, sans-serif font. On the far left side, a wide, vertical lime green banner runs from the header down to the footer area, containing the number "{day}" in large, bold, white text, oriented vertically. The main body of the infographic, against the dark blue background, contains white and lime green text explaining Physical AI concepts. Examples of the text include phrases like "Physical AI is a evening containous process of chrcuit.." and "Having machine intelligence, we may show for allumorly poocess in computing." To the right of the text, a clean, modern flow diagram with illustrations in white and lime green shows a square microchip icon connected by a curved lime green arrow to a robotic arm icon, which is then connected by another lime green arrow to a sensor/camera device icon with wireless signals, and finally, that is connected by a lime green arrow to a neural network diagram with interconnected nodes. All elements are linked by lime green arrows indicating a process flow. At the bottom center, in white text, is the footer: "Keep Learning, Build the Future | Author: Shubham Pratap Singh". The overall aesthetic is clean, modern, and educational, with a strictly defined color palette of dark charcoal blue, lime green, and white.
+        Create a professional infographic image (1024x1024) with this exact layout:
+        
+        **LAYOUT STRUCTURE:**
+        1. **Header Section (Top):**
+           - Dark charcoal blue/gray background
+           - Large white bold text: "DAY {day} OF 365: LearnPhysicalAIBitByBit"
+           
+        2. **Topic Banner (Below Header):**
+           - Solid bright lime green (#A4D65E) horizontal banner spanning full width
+           - Text in dark charcoal: "{topic}"
+           - Bold, uppercase font
+           
+        3. **Left Sidebar:**
+           - Vertical lime green banner running from topic section to footer
+           - Contains "{{day}}" in large dark charcoal text, rotated 90 degrees
+           - Width: ~60-80px
+           
+        4. **Main Content Area (Dark charcoal blue background #2C3E50):**
+           LEFT SIDE (60% width):
+           - 3-4 bullet points explaining the day's topic
+           - Text in white and lime green
+           - "Physical AI" or key terms in lime green
+           - Readable sans-serif font
+           
+           RIGHT SIDE (40% width):
+           - Digrams related to day's topic
+           
+        5. **Footer Section (Bottom):**
+           - Same dark background
+           - White text: "Keep Learning, Build the Future | Author: Shubham Pratap Singh"
+           - Centered, smaller font
+        
+        **COLOR PALETTE (STRICTLY):**
+        - Background: Dark charcoal blue (#2C3E50)
+        - Accent: Bright lime green (#A4D65E)
+        - Text: White (#FFFFFF)
+        - Secondary accent: Blue (#3498DB) for icons
+        
+        **STYLE:**
+        - Clean, modern, professional tech infographic
+        - Grid pattern subtle overlay on background
+        - Rounded corners on the entire image
+        - Icons should be simple, flat design
+        - No gradients, keep it clean and readable
         """
         # Note: Use Gemini's image gen endpoint or fallback to text description
         # For now, generate image prompt for manual creation
