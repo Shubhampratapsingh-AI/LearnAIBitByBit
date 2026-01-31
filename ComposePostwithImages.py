@@ -549,9 +549,9 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         - Secondary accent (icons/lines): Blue (#3498DB)
         
         SERIES METADATA (EDIT DAILY):
-        - DAY NUMBER: {DAY}
+        - DAY NUMBER: {day}
         - SERIES TITLE: LearnPhysicalAIBitByBit
-        - MAIN TOPIC: {MAIN_TOPIC}
+        - MAIN TOPIC: {topic}
         - AUTHOR NAME: Shubham Pratap Singh
         - TOTAL PAGES: {TOTAL_PAGES}
         
@@ -560,31 +560,31 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         1. HEADER SECTION (TOP):
         - Dark charcoal background
         - Large bold white text:
-          "DAY {DAY} OF 365: LearnPhysicalAIBitByBit"
+          "DAY {day} OF 365: LearnPhysicalAIBitByBit"
         
         2. TOPIC BANNER (BELOW HEADER):
         - Full-width bright lime green (#A4D65E)
         - Bold, uppercase, dark charcoal text:
-          "{MAIN_TOPIC}"
+          "{topic}"
         
         3. LEFT SIDEBAR:
         - Vertical lime green banner
         - Width: 60–80 px
         - Runs from topic banner to footer
         - Rotated 90° dark charcoal text:
-          "DAY {DAY}"
+          "DAY {day}"
         
         4. FOOTER SECTION (BOTTOM):
         - Same dark background
         - Centered white text (small font):
-          "Keep Learning, Build the Future | Author: Shubham Pratap Singh"
+          "Keep Learning, Build the Future | Shubham Pratap Singh"
         
         PAGE-WISE CONTENT STRUCTURE:
         
         PAGE 1 — CONCEPT OVERVIEW:
         LEFT (60%):
         - 3–4 bullet points explaining:
-          - High-level intuition of {MAIN_TOPIC}
+          - High-level intuition of {topic}
           - Why it matters in Physical AI
           - Simple mental model
         - Highlight key terms in lime green
@@ -632,7 +632,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         - Forward-looking message
         
         RIGHT (40%):
-        - Minimal illustration (AI, robot, brain, signals, charts)
+        - Minimal illustration (Physical AI, robot, brain, signals, charts)
         
         FINAL QUALITY RULES:
         - Maintain consistent typography across all pages
