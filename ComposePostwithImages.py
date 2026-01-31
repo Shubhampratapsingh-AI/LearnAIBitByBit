@@ -1,6 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
 import os
+import re
 
 # Gemini API Key from Streamlit Secrets
 GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY")
@@ -470,7 +471,8 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         st.markdown("## ✅ **YOUR LINKEDIN PACKAGE**")
         
         st.markdown("### 📝 **Post Text**")
-        st.code(post_text)
+        st.code(clean_markdown(post_text))
+        #st.code(post_text)
         
         st.markdown("### 🖼️ **Image Prompt** (Copy to Gemini Image Gen)")
         st.code(image_prompt, language="text")
@@ -484,4 +486,16 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
 
 st.info("💎 **Pro Tip:** Paste Image Prompt into Gemini image generator for instant visuals!")
 st.caption("Days 1-68 + 335-365 loaded • Add more topics anytime!")
+
+
+def clean_markdown(text):
+    # Removes bold/italic markers (* or _)
+    text = re.sub(r'\*\*|__|\*|_', '', text)
+    # Removes headers (### )
+    text = re.sub(r'^#+\s', '', text, flags=re.MULTILINE)
+    # Removes links [text](url) -> keeping only "text"
+    text = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', text)
+    return text
+
+
 
