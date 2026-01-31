@@ -476,58 +476,87 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         """
         '''
         image_prompt = f"""
-        Create a professional LinkedIn carousel image for the topic: "{topic}"
+        Create a professional LinkedIn carousel image for the 365-day learning series.
         
-        Overall Style:
-        - Dark charcoal / graphite background with subtle grid texture
-        - Accent color: neon lime green + white text
-        - Flat yet modern tech-infographic style (clean, minimal, engineering-focused)
-        - High contrast, easy to read on mobile
+        SERIES IDENTITY (DO NOT CHANGE):
+        - Series name: LearnPhysicalAIBitByBit
+        - Visual theme: engineering-focused, modern, minimal
+        - Audience: engineers, AI/robotics learners
+        - Flat vector infographic style
         
-        Top Header:
-        - At the very top, bold white text:
+        STRICT COLOR SYSTEM (MATCH REFERENCE IMAGE):
+        - Background: dark charcoal / graphite grey (matte, almost black)
+        - Accent color: neon yellow-green (lime tone)
+        - Primary text: pure white
+        - Highlight text: neon yellow-green
+        - Absolutely NO blue, NO cyan, NO purple
+        
+        CANVAS & QUALITY:
+        - Size: 1024 × 1024 (square)
+        - High quality, sharp typography
+        - Clean spacing, no clutter
+        - Subtle grid texture in background (very faint)
+        
+        =====================================
+        TOP HEADER (FIXED LAYOUT)
+        =====================================
+        - Place at the very top:
+          Large, bold, white sans-serif text:
           "DAY {day} OF 365: LearnPhysicalAIBitByBit"
-        - Sans-serif, heavy weight, slightly condensed
-        - Header sits on a darker strip for clear separation
+        - Heavy weight font, no glow, no gradient
         
-        Topic Banner:
-        - Below the header, place a wide horizontal lime-green strip
-        - Inside it, centered, bold text:
-          "{{topic}}"
-        - Text color: dark charcoal / near-black
-        - Simple, strong visual anchor
+        =====================================
+        TOPIC BANNER (FIXED STYLE)
+        =====================================
+        - Below the header, place a wide horizontal neon yellow-green strip
+        - Inside the strip, centered, bold dark-charcoal text:
+          "{topic}"
+        - Flat, clean, visually dominant
         
-        Main Content (Left Side):
-        - Short, easy-to-read explanation of the topic
-        - Important keywords highlighted in lime green
-        - Text aligned vertically, like a learning card
-        - Keep language simple and educational (engineer-friendly)
+        =====================================
+        MAIN CONTENT AREA (SPLIT LAYOUT)
+        =====================================
         
-        Visuals (Right Side):
-        - Topic-based vector illustrations ONLY (do not hardcode specific objects)
-        - Examples depending on topic:
-          - Robotics → robotic arm / actuators
-          - AI → neural network nodes
-          - Sensors → signal waves, chips
-        - Use flat icons, rounded shapes, lime + white color palette
+        LEFT SIDE – EXPLANATION:
+        - Short, simple, educational explanation of the topic
+        - Engineer-friendly language
+        - Body text in white
+        - Highlight important keywords in neon yellow-green
+        - Avoid long paragraphs, keep it scannable
         
-        Layout Balance:
-        - Left: text explanation
-        - Right: diagrams/icons
-        - Plenty of spacing, no clutter
+        RIGHT SIDE – VISUALS:
+        - Topic-dependent flat vector diagrams
+        - Do NOT hardcode any specific objects
+        - Visuals must adapt based on topic:
+          - Concepts → abstract diagrams
+          - Comparisons → side-by-side blocks
+          - Processes → arrows + flow
+        - Use ONLY: white, neon yellow-green, dark grey
         
-        Footer:
-        - At the bottom center, small white text:
+        =====================================
+        VISUAL FLOW
+        =====================================
+        - Clear arrows or structure showing:
+          concept → process → outcome
+        - Logical, intuitive flow
+        - Minimal but meaningful
+        
+        =====================================
+        FOOTER (FIXED)
+        =====================================
+        - Bottom center, small white text:
           "Keep Learning, Build the Future | Shubham Pratap Singh"
         
-        Rendering:
-        - 1024x1024
-        - High quality
-        - Sharp typography
-        - Clean infographic look suitable for LinkedIn carousel
+        =====================================
+        FINAL RULES (VERY IMPORTANT)
+        =====================================
+        - Maintain identical layout for all 365 days
+        - Only {day} and {topic} change
+        - No visual noise
+        - Mobile-friendly
+        - Looks like a premium LinkedIn carousel series
         """
-
-     
+            
         # Note: Use Gemini's image gen endpoint or fallback to text description
         # For now, generate image prompt for manual creation
         st.markdown("## ✅ **YOUR LINKEDIN PACKAGE**")
