@@ -12,6 +12,15 @@ if not GEMINI_API_KEY:
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-3-flash-preview')
 
+def clean_markdown(text):
+    # Removes bold/italic markers (* or _)
+    text = re.sub(r'\*\*|__|\*|_', '', text)
+    # Removes headers (### )
+    text = re.sub(r'^#+\s', '', text, flags=re.MULTILINE)
+    # Removes links [text](url) -> keeping only "text"
+    text = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', text)
+    return text
+    
 # YOUR COMPLETE DAILY TOPICS LIST (exactly as provided)
 DAILY_TOPICS = {
     # MONTH 1: AI BASICS (Days 1-30)
@@ -488,14 +497,7 @@ st.info("💎 **Pro Tip:** Paste Image Prompt into Gemini image generator for in
 st.caption("Days 1-68 + 335-365 loaded • Add more topics anytime!")
 
 
-def clean_markdown(text):
-    # Removes bold/italic markers (* or _)
-    text = re.sub(r'\*\*|__|\*|_', '', text)
-    # Removes headers (### )
-    text = re.sub(r'^#+\s', '', text, flags=re.MULTILINE)
-    # Removes links [text](url) -> keeping only "text"
-    text = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', text)
-    return text
+
 
 
 
