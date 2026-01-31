@@ -444,7 +444,7 @@ st.markdown("**Gemini Text + Images • Your Exact Topics • Robotics Focus**")
 
 day = st.number_input("Enter Day (1-365)", 1, 365, 1)
 topic = DAILY_TOPICS.get(day, "AI & Robotics Deep Dive")
-
+TOTAL_PAGES = st.number_input("Enter Pages (1-10)", 1, 10, 5)
 st.success(f"**📚 Day {day} Topic:** {topic}")
 
 if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
@@ -475,9 +475,10 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         **Footer:** At the very bottom center, in smaller glowing text, include the fixed footer: "Keep Learning, Build the Future | Author: Shubham Pratap Singh".
         """
         '''
+        '''
        # Replace the image_prompt section with this:
         image_prompt = f"""
-        Create a professional infographic image (1024x1024) with this exact layout:
+        Create a professional infographic image (1080x1350) with this exact layout:
         
         **LAYOUT STRUCTURE:**
         1. **Header Section (Top):**
@@ -491,7 +492,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
            
         3. **Left Sidebar:**
            - Vertical lime green banner running from topic section to footer
-           - Contains "{{day}}" in large dark charcoal text, rotated 90 degrees
+           - Contains "{day}" in large dark charcoal text, rotated 90 degrees
            - Width: ~60-80px
            
         4. **Main Content Area (Dark charcoal blue background #2C3E50):**
@@ -522,6 +523,126 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         - Icons should be simple, flat design
         - No gradients, keep it clean and readable
         """
+        '''
+        image_prompt = f"""
+        ROLE:
+        You are a professional tech infographic designer.
+        
+        IMPORTANT OUTPUT RULES:
+        - Generate {TOTAL_PAGES} SEPARATE IMAGES
+        - Each image represents ONE carousel page
+        - Do NOT combine multiple pages into a single image
+        - Each image must be exported individually
+        
+        CANVAS SETTINGS:
+        - Platform: LinkedIn Carousel
+        - Size: 1080x1350 px (portrait)
+        - Rounded corners on entire image
+        - Subtle grid pattern overlay on background
+        - Clean, modern, professional tech infographic
+        - Flat design only (NO gradients)
+        
+        COLOR PALETTE (STRICT — NO DEVIATION):
+        - Background: Dark charcoal blue (#2C3E50)
+        - Accent: Bright lime green (#A4D65E)
+        - Primary text: White (#FFFFFF)
+        - Secondary accent (icons/lines): Blue (#3498DB)
+        
+        SERIES METADATA (EDIT DAILY):
+        - DAY NUMBER: {DAY}
+        - SERIES TITLE: LearnPhysicalAIBitByBit
+        - MAIN TOPIC: {MAIN_TOPIC}
+        - AUTHOR NAME: Shubham Pratap Singh
+        - TOTAL PAGES: {TOTAL_PAGES}
+        
+        COMMON LAYOUT (APPLIES TO ALL PAGES):
+        
+        1. HEADER SECTION (TOP):
+        - Dark charcoal background
+        - Large bold white text:
+          "DAY {DAY} OF 365: LearnPhysicalAIBitByBit"
+        
+        2. TOPIC BANNER (BELOW HEADER):
+        - Full-width bright lime green (#A4D65E)
+        - Bold, uppercase, dark charcoal text:
+          "{MAIN_TOPIC}"
+        
+        3. LEFT SIDEBAR:
+        - Vertical lime green banner
+        - Width: 60–80 px
+        - Runs from topic banner to footer
+        - Rotated 90° dark charcoal text:
+          "DAY {DAY}"
+        
+        4. FOOTER SECTION (BOTTOM):
+        - Same dark background
+        - Centered white text (small font):
+          "Keep Learning, Build the Future | Author: Shubham Pratap Singh"
+        
+        PAGE-WISE CONTENT STRUCTURE:
+        
+        PAGE 1 — CONCEPT OVERVIEW:
+        LEFT (60%):
+        - 3–4 bullet points explaining:
+          - High-level intuition of {MAIN_TOPIC}
+          - Why it matters in Physical AI
+          - Simple mental model
+        - Highlight key terms in lime green
+        
+        RIGHT (40%):
+        - Simple conceptual diagram
+        - Flat icons, arrows, labels
+        
+        PAGE 2 — CORE INTUITION:
+        LEFT (60%):
+        - Bullet points explaining:
+          - Core principle
+          - Key idea or light formula (no heavy math)
+          - Practical interpretation
+        
+        RIGHT (40%):
+        - Step-by-step visual diagram
+        - Highlight interactions using arrows or vectors
+        
+        PAGE 3 — APPLIED UNDERSTANDING:
+        LEFT (60%):
+        - Bullet points explaining:
+          - How this concept is used in Physical AI
+          - Robotics / sensors / control system link
+          - Data or signal flow intuition
+        
+        RIGHT (40%):
+        - Applied diagram (robot, sensor pipeline, transformation flow)
+        
+        PAGE 4 — EXAMPLE OR BREAKDOWN:
+        LEFT (60%):
+        - Bullet points:
+          - Simple numeric or logical example
+          - Interpretation of result
+          - What this tells us
+        
+        RIGHT (40%):
+        - Clean worked example visual
+        - Highlight important steps clearly
+        
+        PAGE 5 (OPTIONAL) — TAKEAWAYS / CTA:
+        LEFT (60%):
+        - 3 concise takeaways
+        - Encouraging learning tone
+        - Forward-looking message
+        
+        RIGHT (40%):
+        - Minimal illustration (AI, robot, brain, signals, charts)
+        
+        FINAL QUALITY RULES:
+        - Maintain consistent typography across all pages
+        - Icons must be simple, flat, and professional
+        - No clutter, no overcrowding
+        - High contrast text for readability
+        - Clear visual hierarchy (headline → bullets → diagram)
+        """
+
+    
         # Note: Use Gemini's image gen endpoint or fallback to text description
         # For now, generate image prompt for manual creation
         st.markdown("## ✅ **YOUR LINKEDIN PACKAGE**")
