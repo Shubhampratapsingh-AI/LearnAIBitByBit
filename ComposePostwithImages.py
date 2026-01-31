@@ -465,7 +465,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         post_text = text_response.text
         
         # 2. Generate IMAGE
-        image_prompt = f"""
+        '''image_prompt = f"""
         Create LinkedIn carousel image for: "{topic}"
         **Central Banner:**Across the exact center of the image, there is a large, glowing, futuristic banner with beveled edges. Inside this banner, in large, bold, neon cyan text, it reads: "DAY {day} OF 365: LearnPhysicalAIBitByBit".
         Style: Professional tech infographic (blue/cyan)
@@ -474,7 +474,10 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         1024x1024, high quality                                                                                                                                                                                                                                                                                                                             
         **Footer:** At the very bottom center, in smaller glowing text, include the fixed footer: "Keep Learning, Build the Future | Author: Shubham Pratap Singh".
         """
-        
+        '''
+        image_prompt = f"""
+        Infographic image with a dark charcoal blue background featuring a subtle grid pattern. At the very top, a prominent header section has large, bold, white sans-serif text that reads: "DAY {day} OF 365: LearnPhysicalAIBitByBit". Directly below this header is a solid, bright lime green horizontal banner containing the text "{topic}" in white, uppercase, bold, sans-serif font. On the far left side, a wide, vertical lime green banner runs from the header down to the footer area, containing the number "{day}" in large, bold, white text, oriented vertically. The main body of the infographic, against the dark blue background, contains white and lime green text explaining Physical AI concepts. Examples of the text include phrases like "Physical AI is a evening containous process of chrcuit.." and "Having machine intelligence, we may show for allumorly poocess in computing." To the right of the text, a clean, modern flow diagram with illustrations in white and lime green shows a square microchip icon connected by a curved lime green arrow to a robotic arm icon, which is then connected by another lime green arrow to a sensor/camera device icon with wireless signals, and finally, that is connected by a lime green arrow to a neural network diagram with interconnected nodes. All elements are linked by lime green arrows indicating a process flow. At the bottom center, in white text, is the footer: "Keep Learning, Build the Future | Author: Shubham Pratap Singh". The overall aesthetic is clean, modern, and educational, with a strictly defined color palette of dark charcoal blue, lime green, and white.
+        """
         # Note: Use Gemini's image gen endpoint or fallback to text description
         # For now, generate image prompt for manual creation
         st.markdown("## ✅ **YOUR LINKEDIN PACKAGE**")
