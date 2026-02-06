@@ -459,8 +459,8 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         # 1. Generate POST TEXT
         text_prompt = f"""
         Day {day}: "{topic}"
-        
-        Create LinkedIn post for Indian tech YouTuber (robotics/electronics) for Day {day} of 365 days LearnPhysicalAIBitByBit:
+        You are world best content creator, whoe know How to hook audience over LinkedIn post,
+        Try your best to create LinkedIn post for Indian tech guy (robotics/electronics) for Day {day} of 365 days LearnPhysicalAIBitByBit:
         - {word_count} words: Hook → Simple explanation → Robotics example → Takeaway
         - Conversational, educational tone
         - End with question + hashtags (#AI365 #LearnPhysicalAIBitByBit #PhysicalAI #Robotics #GenAI)
@@ -567,6 +567,16 @@ st.info("💎 **Pro Tip:** Paste Image Prompt into Gemini image generator for in
 
 if st.button("✨ Regenerate Post"):
     with st.spinner("🎨 Gemini Recreating post ..."):
+        text_prompt = f"""
+        Day {day}: "{topic}"
+        You are world best content creator, whoe know How to hook audience over LinkedIn post,
+        Try your best to create LinkedIn post for Indian tech guy (robotics/electronics) for Day {day} of 365 days LearnPhysicalAIBitByBit:
+        - {word_count} words: Hook → Simple explanation → Robotics example → Takeaway
+        - Conversational, educational tone
+        - End with question + hashtags (#AI365 #LearnPhysicalAIBitByBit #PhysicalAI #Robotics #GenAI)
+        
+        Output ONLY the post text ready to copy-paste.
+        """
         text_response2 = model.generate_content(text_prompt)
         post_text2 = text_response2.text
         st.markdown("### 📝 **Post Text**")
