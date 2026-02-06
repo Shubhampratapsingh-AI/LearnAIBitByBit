@@ -2,6 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 import os
 import re
+from datetime import date
 
 # Gemini API Key from Streamlit Secrets
 GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY")
@@ -442,9 +443,15 @@ DAILY_TOPICS = {
 st.title("🚀 365-Day AI Series Generator")
 st.markdown("**Gemini Text + Images • Your Exact Topics • Robotics Focus**")
 
-day = st.number_input("Enter Day (1-365)", 1, 365, 1)
+# given date (YYYY, MM, DD)
+start_date = date(2026, 1, 16)
+# today's date
+today = date.today()
+# difference
+days_count = (today - start_date).days
+day = st.number_input("Enter Day (1-365)", 1, 365, days_count)
 topic = DAILY_TOPICS.get(day, "AI & Robotics Deep Dive")
-word_count = st.number_input("Word count(100-600)", 100, 600, 250)
+word_count = st.number_input("Word count(100-600)", 100, 600, 280)
 st.success(f"**📚 Day {day} Topic:** {topic}")
 
 if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
