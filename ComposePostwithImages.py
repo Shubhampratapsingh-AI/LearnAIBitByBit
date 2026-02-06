@@ -475,85 +475,71 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         **Footer:** At the very bottom center, in smaller glowing text, include the fixed footer: "Keep Learning, Build the Future | **Shubham Pratap Singh**".
         """
         image_prompt2 = f"""
-        Create a professional LinkedIn carousel image for the 365-day learning series.
+        Create a LinkedIn carousel image for: "{topic}"
         
-        SERIES IDENTITY (DO NOT CHANGE):
-        - Series name: LearnPhysicalAIBitByBit
-        - Visual theme: engineering-focused, modern, minimal
-        - Audience: engineers, AI/robotics learners
-        - Flat vector infographic style
+        🎯 Design Philosophy (STRICT)
+        Minimal, high-impact, idea-first design
+        Built for engineers & serious AI learners
+        Scroll-stopping, discussion-oriented
+        No clutter, no textbook explanations
         
-        STRICT COLOR SYSTEM (MATCH REFERENCE IMAGE):
-        - Background: dark charcoal / graphite grey (matte, almost black)
-        - Accent color: neon yellow-green (lime tone)
-        - Primary text: pure white
-        - Highlight text: neon yellow-green
-        - Absolutely NO blue, NO cyan, NO purple
         
-        CANVAS & QUALITY:
-        - Size: 1024 × 1024 (square)
-        - High quality, sharp typography
-        - Clean spacing, no clutter
-        - Subtle grid texture in background (very faint)
+        🎨 Background (DO NOT CHANGE)
+        Plain dark bluish-green / teal background
+        Very subtle gradient allowed
+        ❌ No noise, no textures, no patterns
+
         
-        =====================================
-        TOP HEADER (FIXED LAYOUT)
-        =====================================
-        - Place at the very top:
-          Large, bold, white sans-serif text:
-          "DAY {day} OF 365: LearnPhysicalAIBitByBit"
-        - Heavy weight font, no glow, no gradient
+        🧠 Content Rules (CRITICAL)
+        Show ONE core idea only
+        Use 1 bold headline sentence (big font, high contrast)
+        Supporting elements only as simple visual logic
+        arrows, dots, blocks, flow
         
-        =====================================
-        TOPIC BANNER (FIXED STYLE)
-        =====================================
-        - Below the header, place a wide horizontal neon yellow-green strip
-        - Inside the strip, centered, bold dark-charcoal text:
-          "{topic}"
-        - Flat, clean, visually dominant
+        ❌ No paragraphs
+        ❌ No equations
+        ❌ No numeric calculations
+        ❌ No humanoid robots or sci-fi art
         
-        =====================================
-        MAIN CONTENT AREA (SPLIT LAYOUT)
-        =====================================
         
-        LEFT SIDE – EXPLANATION:
-        - Short, simple, educational explanation of the topic
-        - Engineer-friendly language
-        - Body text in white
-        - Highlight important keywords in neon yellow-green
-        - Avoid long paragraphs, keep it scannable
+        🖋️ Text Style
+        Headline: Very large, bold, confident
+        Supporting labels: very minimal (1–3 words max)
+        Prefer conceptual words over technical formulas
         
-        RIGHT SIDE – VISUALS:
-        - Topic-dependent flat vector diagrams
-        - Do NOT hardcode any specific objects
-        - Visuals must adapt based on topic:
-          - Concepts → abstract diagrams
-          - Comparisons → side-by-side blocks
-          - Processes → arrows + flow
-        - Use ONLY: white, neon yellow-green, dark grey
+
+        🧩 Visual Elements Allowed
+        Abstract data dots
+        Simple neural network nodes
+        Arrows showing flow or bias propagation
+        Minimal icons (check / cross / warning)
+        Clean geometric shapes
         
-        =====================================
-        VISUAL FLOW
-        =====================================
-        - Clear arrows or structure showing:
-          concept → process → outcome
-        - Logical, intuitive flow
-        - Minimal but meaningful
         
-        =====================================
-        FOOTER (FIXED)
-        =====================================
-        - Bottom center, small white text:
-          "Keep Learning, Build the Future | Shubham Pratap Singh"
+        ❌ Avoid:
+        Detailed diagrams
+        Code blocks
+        Decorative robots
+        Overcrowded visuals
         
-        =====================================
-        FINAL RULES (VERY IMPORTANT)
-        =====================================
-        - Maintain identical layout for all 365 days
-        - Only {day} and {topic} change
-        - No visual noise
-        - Mobile-friendly
-        - Looks like a premium LinkedIn carousel series
+        
+        🟦 Central Banner (Brand Lock)
+        Across the image (center or lower-third), include a glowing futuristic banner with beveled edges.
+        Text inside banner (neon cyan, bold): “DAY {day} OF 365: LearnPhysicalAIBitByBit”
+        (Same font, glow, and placement every day)
+        
+        
+        🧾 Footer (LOCKED FORMAT)
+        At the very bottom center, small and subtle:
+        Keep Learning, Build the Future | Shubham Pratap Singh
+        Name in bold
+        
+
+        🖼️ Output Specs
+        Size: 1024 × 1024
+        High resolution
+        Professional tech aesthetic
+        Clean, calm, confident
         """
             
         # Note: Use Gemini's image gen endpoint or fallback to text description
@@ -564,8 +550,7 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
         st.code(clean_markdown(post_text), language="text")
         #st.code(post_text)
                
-        st.markdown("### 📝 **Regenerated Post**")
-        st.code(clean_markdown(post_text), language="text")
+
         st.markdown("### 🖼️ **Image Prompts** ")
         st.code(image_prompt2, language="text")
         st.code(image_prompt1, language="text")
@@ -574,11 +559,11 @@ if st.button("✨ Generate Complete LinkedIn Package", type="primary"):
 st.info("💎 **Pro Tip:** Paste Image Prompt into Gemini image generator for instant visuals!")
 
 if st.button("✨ Regenerate Post"):
+    with st.spinner("🎨 Gemini Recreating post ..."):
         text_response2 = model.generate_content(text_prompt)
         post_text2 = text_response2.text
         st.markdown("### 📝 **Post Text**")
         st.code(clean_markdown(post_text2), language="text")
-
 
 
 
