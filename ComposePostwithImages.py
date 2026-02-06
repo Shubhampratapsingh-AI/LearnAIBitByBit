@@ -444,7 +444,7 @@ st.title("🚀 365-Day AI Series Generator")
 st.markdown("**Gemini Text + Images • Your Exact Topics • Robotics Focus**")
 
 # given date (YYYY, MM, DD)
-start_date = date(2026, 1, 16)
+start_date = date(2026, 1, 15)
 # today's date
 today = date.today()
 # difference
